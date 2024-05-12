@@ -17,7 +17,6 @@ private:
     std::vector<std::vector<int>> adjMatrix;
        int nVertices; // Number of vertices 
        int edges; // Number of edges 
-       bool directed;//if there is a direction
        bool weighted; // if there is a weight on the edges
 
 public:

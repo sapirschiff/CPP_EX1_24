@@ -122,7 +122,7 @@ vector<int> Algorithms :: bellmanFord(const Graph& graph, size_t source, vector<
     dist.assign(n, numeric_limits<int>::max()); // Init distances with infinity
     prev.assign(n, -1); //Contains the previous vertices in the shortest path.
 
-    dist[source] = 0;
+    dist[source] = 0; // we start to put 0
 
     for (size_t i = 0; i < n - 1; i++) {     // Relax edges repeatedly
         for (size_t u = 0; u < n; u++) {
@@ -161,7 +161,6 @@ string Algorithms::shortestPath(const Graph& graph, int source, int destination)
         return to_string(source);  // Path from a node to itself is the node
     }
 
-    // Construct the shortest path
     vector<int> path;
     int current = destination;
     path.push_back(current);
@@ -171,7 +170,7 @@ string Algorithms::shortestPath(const Graph& graph, int source, int destination)
     }
     reverse(path.begin(), path.end()); // Reverse the path to get correct order
 
-    // Convert the path to a string
+    // return the string of the path
     string pathStr;
     for (size_t i = 0; i < path.size(); i++) {
         if (i > 0) {
@@ -186,13 +185,13 @@ string Algorithms::shortestPath(const Graph& graph, int source, int destination)
 string Algorithms::isContainsHelper(const Graph& g, int source, vector<int>& visited, vector<int>& stack_of_cycle, int parent) {
     int n = g.getNVertices();
 
-    visited[source] = 1; // Mark as in-progress
+    visited[source] = 1; 
     stack_of_cycle.push_back(source);
 
     for (int v = 0; v < n; v++) {
-        int weight = g.getAdjMatrix()[source][v];
+        int weight = g.getAdjMatrix()[source][v]; // to know what have in the matrix
         if (weight != 0) {
-            if (visited[v] == 0) { // Unvisited neighbor
+            if (visited[v] == 0) { // we dont visit the v
                 string path = isContainsHelper(g, v, visited, stack_of_cycle,-1);
                 if (path != "-1") {
                     return path;
@@ -218,13 +217,13 @@ string Algorithms::isContainsHelper(const Graph& g, int source, vector<int>& vis
 string Algorithms::isContainsCycle(const Graph& graph) {
     size_t n = graph.getNVertices();
     const vector<vector<int>>& adjMatrix = graph.getAdjMatrix();
-    vector<int> visited(n, 0);
+    vector<int> visited(n, 0); // put o every area
     vector<int> stack_of_cycle;
 
     for (int source = 0; source < n; source++) {
         if (visited[source] == 0) {
             vector<int> dist(n, numeric_limits<int>::max());
-            vector<int> prev(n, -1);  // the prevese 
+            vector<int> prev(n, -1);   
             string path = isContainsHelper(graph, source, visited, stack_of_cycle,-1);
             if (path != "-1") {
                 return path;
@@ -236,10 +235,9 @@ string Algorithms::isContainsCycle(const Graph& graph) {
 }
 
 bool  Algorithms:: isBipartiteHelper(const vector<vector<int>>& graph, int current, vector<int>& visited, vector<int>& side1, vector<int>& side2, int group_num) {
-    visited[current] = group_num; // Mark group
+    visited[current] = group_num; 
 
-    // Add to the correct group
-    if (group_num == 0) {
+    if (group_num == 0) { 
         side1.push_back(current);
     } else {
         side2.push_back(current);
@@ -264,16 +262,15 @@ string Algorithms::isBipartite(const Graph& g) {
     const vector<vector<int>>& graph = g.getAdjMatrix();
     int n = g.getNVertices();
 
-    vector<int> side1;
-    vector<int> side2;
+    vector<int> side1; // the first side
+    vector<int> side2; // the second side
     vector<int> visited(n, -1);
 
-    // Use DFS to traverse through neighbors
     for (int i = 0; i < n; i++) {
         if (visited[i] == -1) {
             if (!isBipartiteHelper(graph, i, visited, side1, side2, 0)) {
-                // Graph is not bipartite
-                return "0";
+                return "0"; // not bipartite
+
             }
         }
     }

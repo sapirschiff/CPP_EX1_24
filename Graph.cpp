@@ -11,7 +11,7 @@
 
 namespace ariel {
 
-Graph::Graph() : nVertices(0), edges(0) , directed(false) ,weighted(false){}
+Graph::Graph() : nVertices(0), edges(0) ,weighted(false){}
 
 
 
@@ -24,27 +24,9 @@ void Graph::loadGraph(const std::vector<std::vector<int>>& matrix) {
         }
     }
 
-   // bool symmetrical = true;
-   // bool weight = false;
-   // for (size_t i = 0; i < n; i++) {
-    //   for (size_t j = i + 1; j < n; j++) {
-    //        if (matrix[i][j] != matrix[j][i]) { // if isn't equal so is not symmetrical is directed
-    //            symmetrical = false; 
-    //        }
-    //        if (matrix[i][j] != 1 && matrix[i][j] != 0 ) // if the number in the matrix is diffrent from 0/1
-    //           weight = true;
-
-    
-   //     }
-   // }
-
-    // load the matrix
     this->adjMatrix = matrix;
     this->nVertices = n;
-   // this->directed = !symmetrical; 
-   // this->weighted = weight;
-
-        // count the number of edges in the graph 
+   
         this->edges=0;
         for (std::size_t i = 0; i < n; i++) {
            for (std::size_t j = 0; j < n; j++) {
