@@ -8,11 +8,11 @@
 #include "Graph.hpp"
 #include <climits>
 
-const int MY_INT_MAX = 1000000000; // Global definition
 
 
 using namespace std;
 using namespace ariel;
+const int INT = INT_MAX;
 
 TEST_CASE("Test isConnected")
 {
@@ -75,9 +75,9 @@ TEST_CASE("Test shortestPath")
     CHECK(Algorithms::shortestPath(g, 0, 3) == "0->3");
 
     vector<vector<int>> graph2 = {
-        {0, 3, MY_INT_MAX, 7},
+        {0, 3,INT , 7},
         {3, 0, 1, 5},
-        {MY_INT_MAX, 1, 0, 2},
+        {INT, 1, 0, 2},
         {7, 5, 2, 0}
     };
     g.loadGraph(graph2);
@@ -85,9 +85,9 @@ TEST_CASE("Test shortestPath")
 
     // Test for no path available
     vector<vector<int>> graph3 = {
-        {0, MY_INT_MAX, MY_INT_MAX},
-        {MY_INT_MAX, 0, MY_INT_MAX},
-        {MY_INT_MAX, MY_INT_MAX, 0}
+        {0,INT ,INT },
+        {INT, 0, INT},
+        {INT,INT , 0}
     };
     g.loadGraph(graph3);
     CHECK(Algorithms::shortestPath(g, 0, 2) == "-1");
@@ -101,11 +101,11 @@ TEST_CASE("Test shortestPath")
 
     // Test larger looped graph
     vector<vector<int>> graph5 = {
-        {0, 1, MY_INT_MAX, MY_INT_MAX, 6},
-        {1, 0, 2, MY_INT_MAX, MY_INT_MAX},
-        {MY_INT_MAX, 2, 0, 3, MY_INT_MAX},
-        {MY_INT_MAX, MY_INT_MAX, 3, 0, 4},
-        {6, MY_INT_MAX, MY_INT_MAX, 4, 0}
+        {0, 1, INT,INT , 6},
+        {1, 0, 2,INT ,INT },
+        {INT, 2, 0, 3, INT},
+        {INT, INT, 3, 0, 4},
+        {6,INT , INT, 4, 0}
     };
     g.loadGraph(graph5);
     CHECK(Algorithms::shortestPath(g, 0, 3) == "0->1->2->3");
